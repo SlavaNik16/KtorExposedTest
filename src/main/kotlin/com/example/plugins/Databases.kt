@@ -11,10 +11,10 @@ import org.jetbrains.exposed.sql.transactions.transaction
 fun Application.configureDatabases() {
     Class.forName("org.postgresql.Driver")
     val database = Database.connect(
-            url = "jdbc:${System.getenv("DATABASE_URL")}",
-            driver = System.getenv("JDBC_DRIVER"),
-            user = System.getenv("USER"),
-            password = System.getenv("PASSWORD"),
+        url = "jdbc:${System.getenv("DATABASE_URL")}",
+        driver = System.getenv("JDBC_DRIVER"),
+        user = System.getenv("USER"),
+        password = System.getenv("PASSWORD"),
 
 
         )
@@ -23,14 +23,14 @@ fun Application.configureDatabases() {
         //Просмотр всех пользователей
         get("/users") {
             val users = userService.readAll()
-            if(users.isEmpty()){
+            if (users.isEmpty()) {
                 call.respond("Пользователей нет!!!")
                 return@get
             }
             call.respond(users)
         }
-        
-            // Read user
+
+        //Просмотр пользователя по идентификатору
         get("/users/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
             val user = userService.read(id)
@@ -40,22 +40,22 @@ fun Application.configureDatabases() {
                 call.respond(HttpStatusCode.NotFound)
             }
         }
-        // Create user
+        //Создания пользователя
         post("/users") {
             val user = call.receive<ExposedUser>()
             val id = userService.create(user)
             call.respond(HttpStatusCode.Created, id)
         }
-        
-            // Update user
+
+        //Обновление пользователя по идентификатору
         put("/users/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
             val user = call.receive<ExposedUser>()
             userService.update(id, user)
             call.respond(HttpStatusCode.OK)
         }
-        
-            // Delete user
+
+        //Удаление пользователя по идентификатору
         delete("/users/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
             userService.delete(id)

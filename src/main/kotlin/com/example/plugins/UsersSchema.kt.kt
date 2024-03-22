@@ -26,24 +26,17 @@ class UserService(private val database: Database) {
         }
     }
 
-    suspend fun <T> dbQuery(block: suspend () -> T): T =
-        newSuspendedTransaction(Dispatchers.IO) { block() }
+    suspend fun <T> dbQuery(block: suspend () -> T): T = newSuspendedTransaction(Dispatchers.IO) { block() }
 
-   suspend fun readAll(): List<ExposedUser> {
-       return dbQuery {
-           Users
-               .selectAll()
-               .map {
-               ExposedUser(it[Users.name], it[Users.age])
-           }
-       }
-   }
+    suspend fun readAll(): List<ExposedUser> {
+        return dbQuery {
+            Users.selectAll().map { ExposedUser(it[Users.name], it[Users.age]) }
+        }
+    }
 
     suspend fun read(id: Int): ExposedUser? {
         return dbQuery {
-            Users.select { Users.id eq id }
-                .map { ExposedUser(it[Users.name], it[Users.age]) }
-                .singleOrNull()
+            Users.select { Users.id eq id }.map { ExposedUser(it[Users.name], it[Users.age]) }.singleOrNull()
         }
     }
 
@@ -56,7 +49,7 @@ class UserService(private val database: Database) {
 
     suspend fun update(id: Int, user: ExposedUser) {
         dbQuery {
-            Users.update({ Users.id eq id }) {
+            Users.update({ Users.id.eq(id) }) {
                 it[name] = user.name
                 it[age] = user.age
             }
