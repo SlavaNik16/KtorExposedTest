@@ -8,6 +8,8 @@ import io.ktor.server.testing.*
 import kotlin.test.*
 
 class ApplicationTest {
+
+    //Запуск get запроса, на получение
     @Test
     fun testRoot() = testApplication {
         application {
