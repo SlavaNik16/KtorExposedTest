@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.Database.DatabaseFactory.initializeDatabase
 import com.example.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -15,7 +16,8 @@ fun main() {
 }
 
 fun Application.module() {
-    configureSerialization()
-    configureDatabases()
-    configureRouting()
+    initializeDatabase()
+//    configureSerialization()
+//    configureDatabases()
+//    configureRouting()
 }
