@@ -17,7 +17,9 @@ fun main() {
 
 fun Application.module() {
     initializeDatabase()
-//    configureSerialization()
+    configureMonitoring()
+    configureSerialization()
+    configureSecurity()
 //    configureDatabases()
 //    configureRouting()
 }
