@@ -11,6 +11,7 @@ fun Application.configureSecurity() {
     val jwtService by inject<IJWTService>()
     val userService by inject<IUserService>()
     val jwtRealm = "ktor sample app test"
+
     authentication {
         jwt {
             realm = jwtRealm

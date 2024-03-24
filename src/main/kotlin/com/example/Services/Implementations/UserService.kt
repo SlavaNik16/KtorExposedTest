@@ -5,13 +5,14 @@ import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Models.UserModel
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import com.example.Repositories.Interfaces.Write.IUserWriteRepository
+import com.example.Services.Authentication.IJWTService
 import com.example.Services.Interfaces.IUserService
 import org.jetbrains.exposed.sql.insert
 
 class UserService(
     private val userReadRepository: IUserReadRepository,
-    private val userWriteRepository: IUserWriteRepository
-
+    private val userWriteRepository: IUserWriteRepository,
+    private val iJWTService: IJWTService
 ) : IUserService {
     override suspend fun getUserByEmail(email: String): UserModel? {
         var user: UserModel? = userReadRepository.getUserByEmail(email) ?: return null
