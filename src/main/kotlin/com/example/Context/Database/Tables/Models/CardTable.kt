@@ -1,4 +1,4 @@
-package com.example.Database.Tables.Models
+package com.example.Context.Database.Tables.Models
 
 import org.jetbrains.exposed.sql.Column
 import java.util.*

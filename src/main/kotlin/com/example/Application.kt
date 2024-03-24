@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.Database.DatabaseFactory.initializeDatabase
+import com.example.Context.Database.DatabaseFactory.initializeDatabase
 import com.example.plugins.configureMonitoring
 import com.example.plugins.configureSecurity
 import com.example.plugins.configureSerialization

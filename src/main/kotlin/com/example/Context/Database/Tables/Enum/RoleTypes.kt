@@ -1,4 +1,4 @@
-package com.example.Database.Tables.Enum
+package com.example.Context.Database.Tables.Enum
 
 enum class RoleTypes(val value:Int) {
     User(0),

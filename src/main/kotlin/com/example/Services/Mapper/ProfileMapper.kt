@@ -1,7 +1,9 @@
 package com.example.Services.Mapper
 
+import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Models.UserModel
 import com.example.Services.Mapper.Constants.MapperConstants
+import org.jetbrains.exposed.sql.ResultRow
 import org.mapstruct.Mapper
 import org.mapstruct.NullValuePropertyMappingStrategy
 import org.mapstruct.ReportingPolicy
@@ -12,5 +14,5 @@ import org.mapstruct.ReportingPolicy
     unmappedTargetPolicy = ReportingPolicy.WARN
 )
 abstract class ProfileMapper {
-    //abstract UserModel map(userTable: UserTable)
+    abstract fun map(row: ResultRow?): UserModel?
 }

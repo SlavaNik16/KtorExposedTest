@@ -10,7 +10,6 @@ import java.time.ZoneOffset
 class JWTService {
     private val jwtIssuer = "testIssuerJWTToken"
     private val jwtDomain = "https://localhost:5432/"
-    private val jwtRealm = "ktor sample app test"
     private val jwtSecretKey = System.getenv("JWT_SECRET_KEY")
     private val jwtAlgorithm = Algorithm.HMAC512(jwtSecretKey)
 

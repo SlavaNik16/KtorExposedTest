@@ -1,7 +1,10 @@
-package com.example.Database
+package com.example.Context.Database
 
-import com.example.Database.Tables.Models.CardTable
-import com.example.Database.Tables.Models.UserTable
+import com.example.Context.Database.CommonEntity.EntityInterface.IEntity
+import com.example.Context.Database.CommonEntity.InterfaceDB.IDbRead
+import com.example.Context.Database.Tables.Models.BaseAuditEntity
+import com.example.Context.Database.Tables.Models.CardTable
+import com.example.Context.Database.Tables.Models.UserTable
 import com.typesafe.config.ConfigFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -10,10 +13,12 @@ import io.ktor.server.config.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.Query
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object DatabaseFactory {
+object DatabaseFactory
+{
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
     private val dbUrl = System.getenv("DATABASE_URL")
     private val dbUser = System.getenv("DATABASE_USER")
@@ -33,7 +38,7 @@ object DatabaseFactory {
     fun getHikariDataSource():HikariDataSource {
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
-        config.jdbcUrl = "jdbc:${dbUrl}"
+        config.jdbcUrl = "jdbc:$dbUrl"
         config.username = dbUser
         config.password = dbPassword
         config.maximumPoolSize = 3
@@ -50,5 +55,7 @@ object DatabaseFactory {
             }
         }
     }
+
+
 
 }
