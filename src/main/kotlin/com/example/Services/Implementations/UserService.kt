@@ -3,11 +3,11 @@ package com.example.Services.Implementations
 import com.example.Context.Database.DatabaseFactory.dbQuery
 import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Models.UserModel
+import com.example.Registrations.Mapper.ProfileMapper
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import com.example.Repositories.Interfaces.Write.IUserWriteRepository
 import com.example.Services.Authentication.IJWTService
 import com.example.Services.Interfaces.IUserService
-import com.example.Registrations.Mapper.ProfileMapper
 import org.jetbrains.exposed.sql.insert
 
 class UserService(

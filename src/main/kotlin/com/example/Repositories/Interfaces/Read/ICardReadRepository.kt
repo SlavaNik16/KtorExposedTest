@@ -1,9 +1,7 @@
 package com.example.Repositories.Interfaces.Read
 
 import com.example.Context.Database.Tables.Results.CardTableResult
-import com.example.Models.CardModel
-import com.example.Models.UserModel
-import java.util.UUID
+import java.util.*
 
 /**
  * Репозиторий чтения CardTable

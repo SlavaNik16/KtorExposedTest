@@ -8,9 +8,6 @@ import com.example.Context.Database.Tables.Results.UserTableResult
 import com.example.Models.CardModel
 import com.example.Models.UserModel
 import com.example.Registrations.Mapper.ProfileMapper
-import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.firstValue
-import java.sql.ResultSet
 
 class Mapper : ProfileMapper() {
     override fun mapToUserModel(row: UserTableResult?): UserModel? {

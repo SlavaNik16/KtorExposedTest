@@ -1,11 +1,8 @@
 package com.example.Models
 
 import com.example.Context.Database.CommonEntity.Providers.DateTimeProvider
-import com.example.Context.Database.Tables.Enum.RoleTypes
-import com.example.Context.Database.Tables.Enum.StatusTypes
 import com.example.Utils.OffsetDateTimeSerializer
 import com.example.Utils.UUIDSerializer
-import io.ktor.server.auth.*
 import kotlinx.serialization.Serializable
 import java.time.OffsetDateTime
 import java.util.*

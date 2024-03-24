@@ -1,7 +1,6 @@
 package com.example.Repositories.Interfaces.Write
 
 import com.example.Context.Database.Tables.Models.CardTable
-import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Repositories.Interfaces.IRepositoryWriter
 
 /**

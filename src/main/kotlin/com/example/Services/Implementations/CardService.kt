@@ -3,14 +3,12 @@ package com.example.Services.Implementations
 import com.example.Context.Database.DatabaseFactory.dbQuery
 import com.example.Context.Database.Tables.Models.CardTable
 import com.example.Models.CardModel
+import com.example.Registrations.Mapper.ProfileMapper
 import com.example.Repositories.Interfaces.Read.ICardReadRepository
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import com.example.Repositories.Interfaces.Write.ICardWriteRepository
 import com.example.Services.Interfaces.ICardService
-import com.example.Registrations.Mapper.ProfileMapper
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.update
 import java.util.*
