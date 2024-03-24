@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.Context.Database.DatabaseFactory.initializeDatabase
+import com.example.plugins.configureDependencyInjection
 import com.example.plugins.configureMonitoring
 import com.example.plugins.configureSecurity
 import com.example.plugins.configureSerialization
@@ -19,9 +20,11 @@ fun main() {
 
 fun Application.module() {
     initializeDatabase()
+    configureDependencyInjection()
     configureMonitoring()
     configureSerialization()
     configureSecurity()
+
 //    configureDatabases()
 //    configureRouting()
 }

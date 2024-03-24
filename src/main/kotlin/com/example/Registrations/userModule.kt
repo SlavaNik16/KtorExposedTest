@@ -11,5 +11,5 @@ import org.koin.dsl.module
 val userModule = module {
     single<IUserReadRepository> { UserReadRepository() }
     single<IUserWriteRepository> { UserWriteRepository() }
-    single<IUserService> { UserService() }
+    single<IUserService> { UserService(get(), get()) }
 }

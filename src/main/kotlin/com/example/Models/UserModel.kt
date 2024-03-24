@@ -10,11 +10,11 @@ import java.util.UUID
 @Serializable
 data class UserModel (
     @Serializable(with = UUIDSerializer::class)
-    val id: UUID = UUID.randomUUID(),
-    val surname: String,
-    val name: String,
-    val email: String,
-    val password: String,
-    val roleType: RoleTypes = RoleTypes.User,
-    val statusType: StatusTypes = StatusTypes.Offline
+    var id: UUID = UUID.randomUUID(),
+    var surname: String,
+    var name: String,
+    var email: String,
+    var password: String,
+    var roleType: RoleTypes = RoleTypes.User,
+    var statusType: StatusTypes = StatusTypes.Offline
 ):Principal
