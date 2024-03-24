@@ -1,8 +1,6 @@
 package com.example.Context.Database
 
-import com.example.Context.Database.CommonEntity.EntityInterface.IEntity
-import com.example.Context.Database.CommonEntity.InterfaceDB.IDbRead
-import com.example.Context.Database.Tables.Models.BaseAuditEntity
+
 import com.example.Context.Database.Tables.Models.CardTable
 import com.example.Context.Database.Tables.Models.UserTable
 import com.typesafe.config.ConfigFactory
@@ -13,7 +11,6 @@ import io.ktor.server.config.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.Query
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
