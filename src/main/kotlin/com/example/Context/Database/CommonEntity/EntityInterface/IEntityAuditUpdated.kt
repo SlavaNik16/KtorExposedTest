@@ -8,11 +8,11 @@ interface IEntityAuditUpdated {
     /**
      * Дата обновления
      */
-    var updatedAt: Column<OffsetDateTime>
+    val updatedAt: Column<OffsetDateTime>
 
     /**
      * Кто обновил
      */
-    var updatedBy: Column<String>
+    val updatedBy: Column<String>
 
 }

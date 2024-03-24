@@ -17,8 +17,8 @@ class UserService(
     private val profileMapper: ProfileMapper
 ) : IUserService {
     override suspend fun getUserByEmail(email: String): UserModel? {
-        var user = userReadRepository.getUserByEmail(email) ?: return null
-        return profileMapper.mapToUserModel(user)
+        var userResult = userReadRepository.getUserByEmail(email) ?: return null
+        return profileMapper.mapToUserModel(userResult)
     }
     override suspend fun create(userModel: UserModel) {
        var user = dbQuery{

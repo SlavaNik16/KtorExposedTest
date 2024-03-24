@@ -7,6 +7,7 @@ import com.example.Repositories.Interfaces.Read.ICardReadRepository
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import com.example.Repositories.Interfaces.Write.ICardWriteRepository
 import com.example.Services.Interfaces.ICardService
+import com.example.Services.Mapper.ProfileMapper
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.update
@@ -16,11 +17,18 @@ class CardService(
     private val cardReadRepository: ICardReadRepository,
     private val cardWriteRepository: ICardWriteRepository,
     private val userReadRepository: IUserReadRepository,
+    private val profileMapper: ProfileMapper,
 ):ICardService {
-    override suspend fun getAll(): List<CardModel> = cardReadRepository.getAll()
+    override suspend fun getAll(): List<CardModel>{
+        var cardResult = cardReadRepository.getAll()
+        return profileMapper.mapToCardsModel(cardResult)
+    }
 
 
-    override suspend fun getById(id: UUID): CardModel? = cardReadRepository.getById(id)
+    override suspend fun getById(id: UUID): CardModel?{
+        var cardResult = cardReadRepository.getById(id)
+        return profileMapper.mapToCardModel(cardResult)
+    }
 
     override suspend fun addCard(cardModel: CardModel): CardModel? {
 
@@ -39,10 +47,10 @@ class CardService(
                 table[isVerified] = cardModel.isVerified
             }
         }
-        cardWriteRepository.add(
-            entity = card.table as CardTable,
-            createdBy = "${user.surname} ${user.name}"
-        )
+//        cardWriteRepository.add(
+//            entity = card.table as CardTable,
+//            createdBy = "${user.surname} ${user.name}"
+//        )
         return cardModel
     }
 

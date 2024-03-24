@@ -3,6 +3,8 @@ package com.example.Repositories.Implementation.Read
 import com.example.Context.Database.DatabaseFactory.dbQuery
 import com.example.Context.Database.Tables.Models.CardTable
 import com.example.Context.Database.Tables.Models.UserTable
+import com.example.Context.Database.Tables.Results.CardTableResult
+import com.example.Context.Database.Tables.Results.UserTableResult
 import com.example.Models.CardModel
 import com.example.Models.UserModel
 import com.example.Repositories.Interfaces.Read.ICardReadRepository
@@ -12,7 +14,7 @@ import org.jetbrains.exposed.sql.selectAll
 import java.util.*
 
 class CardReadRepository : ICardReadRepository {
-    override suspend fun getAll(): List<CardModel> {
+    override suspend fun getAll(): List<CardTableResult> {
         return dbQuery{
             CardTable.selectAll()
                 .mapNotNull {
@@ -21,7 +23,7 @@ class CardReadRepository : ICardReadRepository {
         }
     }
 
-    override suspend fun getById(id: UUID): CardModel? {
+    override suspend fun getById(id: UUID): CardTableResult? {
         return dbQuery{
             CardTable.selectAll()
                 .where(CardTable.id.eq(id))
@@ -31,24 +33,14 @@ class CardReadRepository : ICardReadRepository {
         }
     }
 
-    private fun rowToCard(row: ResultRow?): CardModel?{
+    private fun rowToCard(row: ResultRow?): CardTableResult?{
         if(row == null){
             return null
         }
-        var card = CardModel(
-        userId = row[CardTable.userId],
-        title = row[CardTable.title],
-        description = row[CardTable.description],
-        createdAt = row[CardTable.createdAt],
-        isVerified = row[CardTable.isVerified],
+        var cardTableResult = CardTableResult(
+            resultRow = row,
+            cardTable = row as CardTable
         )
-        return card
+        return cardTableResult
     }
-
-//    private fun rowToCard(row: ResultRow?): CardTable?{
-//        if(row == null){
-//            return null
-//        }
-//        return row as CardTable
-//    }
 }

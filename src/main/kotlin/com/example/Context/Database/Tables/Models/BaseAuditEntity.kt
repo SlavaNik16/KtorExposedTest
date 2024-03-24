@@ -19,32 +19,32 @@ abstract class BaseAuditEntity : Table(),
     /**
      * Уникальный идентификатор
      */
-    override var id: Column<UUID> = uuid("id").autoGenerate()
+    override val id: Column<UUID> = uuid("id").autoGenerate()
 
     /**
      * Дата создания
      */
-    override var createdAt: Column<OffsetDateTime> = timestampWithTimeZone("createdAt").default(DateTimeProvider().UtcNow())
+    override val createdAt: Column<OffsetDateTime> = timestampWithTimeZone("createdAt").default(DateTimeProvider().UtcNow())
 
     /**
      * Кто создал
      */
-    override var createdBy: Column<String> = varchar("createdBy",200).default("ApiExampleApp")
+    override val createdBy: Column<String> = varchar("createdBy",200).default("ApiExampleApp")
 
     /**
      * Дата обновления
      */
-    override var updatedAt: Column<OffsetDateTime> = timestampWithTimeZone("updatedAt").default(DateTimeProvider().UtcNow())
+    override val updatedAt: Column<OffsetDateTime> = timestampWithTimeZone("updatedAt").default(DateTimeProvider().UtcNow())
 
     /**
      * Кто обновил
      */
-    override var updatedBy: Column<String> = varchar("updatedBy",200).default("ApiExampleApp")
+    override val updatedBy: Column<String> = varchar("updatedBy",200).default("ApiExampleApp")
 
     /**
      * Дата удаления
      */
-    override var deletedAt: Column<OffsetDateTime?> = timestampWithTimeZone("deletedAt").nullable()
+    override val deletedAt: Column<OffsetDateTime?> = timestampWithTimeZone("deletedAt").nullable()
 
     override val primaryKey: PrimaryKey = PrimaryKey(id)
 }
