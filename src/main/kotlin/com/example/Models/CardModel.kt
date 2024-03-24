@@ -15,7 +15,7 @@ data class CardModel (
     @Serializable(with = UUIDSerializer::class)
     var id: UUID = UUID.randomUUID(),
     @Serializable(with = UUIDSerializer::class)
-    val userId: UUID =  UUID.randomUUID(),
+    val userId: UUID,
     val title: String,
     val description: String?,
     @Serializable(with = OffsetDateTimeSerializer::class)

@@ -21,5 +21,4 @@ val userModule = module {
     single<IUserWriteRepository> { UserWriteRepository() }
     single<IJWTService> { JWTService() }
     singleOf(::UserService).bind(IUserService::class)
-   // scope<JWTService> { UserService(get(), get()) }
 }

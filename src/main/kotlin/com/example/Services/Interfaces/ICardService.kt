@@ -22,12 +22,12 @@ interface ICardService {
     /**
      * Получение карточки
      */
-    suspend fun addCard(card: CardModel): CardModel?
+    suspend fun addCard(cardModel: CardModel): CardModel?
 
     /**
      * Обновления карточки
      */
-    suspend fun updateCard(card: CardModel): CardModel?
+    suspend fun updateCard(cardModel: CardModel, userId: UUID): CardModel?
 
     /**
      * Удаление карточки

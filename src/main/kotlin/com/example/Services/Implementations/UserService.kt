@@ -7,16 +7,18 @@ import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import com.example.Repositories.Interfaces.Write.IUserWriteRepository
 import com.example.Services.Authentication.IJWTService
 import com.example.Services.Interfaces.IUserService
+import com.example.Services.Mapper.ProfileMapper
 import org.jetbrains.exposed.sql.insert
 
 class UserService(
     private val userReadRepository: IUserReadRepository,
     private val userWriteRepository: IUserWriteRepository,
-    private val iJWTService: IJWTService
+    private val iJWTService: IJWTService,
+    private val profileMapper: ProfileMapper
 ) : IUserService {
     override suspend fun getUserByEmail(email: String): UserModel? {
-        var user: UserModel? = userReadRepository.getUserByEmail(email) ?: return null
-        return user
+        var user = userReadRepository.getUserByEmail(email) ?: return null
+        return profileMapper.mapToUserModel(user)
     }
     override suspend fun create(userModel: UserModel) {
        var user = dbQuery{
