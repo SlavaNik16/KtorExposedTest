@@ -1,13 +1,13 @@
 package com.example.Repositories.Implementation
 
 import com.example.Context.Database.CommonEntity.EntityInterface.*
+import com.example.Context.Database.CommonEntity.Providers.DateTimeProvider
 import com.example.Context.Database.DatabaseFactory.dbQuery
 import com.example.Context.Database.Tables.Models.BaseAuditEntity
 
 import com.example.Repositories.Interfaces.IRepositoryWriter
 
 import org.jetbrains.annotations.NotNull
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.update
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -18,6 +18,8 @@ import java.util.*
  */
 open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEntity : IEntity {
     private val userName = "KtorSampleApi"
+    private var dateTimeProvider = DateTimeProvider()
+
     override suspend fun add(entity: TEntity, createdBy: String) {
         if(entity !is IEntityWithId) {
             return
@@ -62,7 +64,7 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
         var entityAuditCreated = entity as IEntityAuditCreated
         dbQuery {
             entity.update {
-                it[entityAuditCreated.createdAt] = OffsetDateTime.now(ZoneOffset.UTC)
+                it[entityAuditCreated.createdAt] = dateTimeProvider.UtcNow()
                 it[entityAuditCreated.createdBy] = createdBy
             }
         }
@@ -78,7 +80,7 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
         var entityAuditUpdated = entity as IEntityAuditUpdated
         dbQuery {
             entity.update {
-                it[entityAuditUpdated.updatedAt] = OffsetDateTime.now(ZoneOffset.UTC)
+                it[entityAuditUpdated.updatedAt] = dateTimeProvider.UtcNow()
                 it[entityAuditUpdated.updatedBy] = updatedBy
             }
         }
@@ -94,7 +96,7 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
         var entityAuditDeleted = entity as IEntityAuditDeleted
         dbQuery {
             entity.update {
-                it[entityAuditDeleted.deletedAt] = OffsetDateTime.now(ZoneOffset.UTC)
+                it[entityAuditDeleted.deletedAt] = dateTimeProvider.UtcNow()
             }
         }
     }

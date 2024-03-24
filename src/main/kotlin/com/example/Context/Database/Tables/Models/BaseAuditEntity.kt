@@ -1,11 +1,11 @@
 package com.example.Context.Database.Tables.Models
 
 import com.example.Context.Database.CommonEntity.EntityInterface.*
+import com.example.Context.Database.CommonEntity.Providers.DateTimeProvider
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.timestampWithTimeZone
 import java.time.OffsetDateTime
-import java.time.ZoneOffset
 import java.util.*
 
 abstract class BaseAuditEntity : Table(),
@@ -24,7 +24,7 @@ abstract class BaseAuditEntity : Table(),
     /**
      * Дата создания
      */
-    override var createdAt: Column<OffsetDateTime> = timestampWithTimeZone("createdAt").default(OffsetDateTime.now(ZoneOffset.UTC))
+    override var createdAt: Column<OffsetDateTime> = timestampWithTimeZone("createdAt").default(DateTimeProvider().UtcNow())
 
     /**
      * Кто создал
@@ -34,7 +34,7 @@ abstract class BaseAuditEntity : Table(),
     /**
      * Дата обновления
      */
-    override var updatedAt: Column<OffsetDateTime> = timestampWithTimeZone("updatedAt").default(OffsetDateTime.now(ZoneOffset.UTC))
+    override var updatedAt: Column<OffsetDateTime> = timestampWithTimeZone("updatedAt").default(DateTimeProvider().UtcNow())
 
     /**
      * Кто обновил
