@@ -2,11 +2,14 @@
 
 package com.example.Context.Database.CommonEntity
 
-//infix fun <T> Query.ById(id: UUID ): Query where T : IEntityWithId {
-//    return where (
-//        this.where()
-//            entities[entities.indexOf(iterator().next() as T)].id.eq(id)
-//        )
-//}
+import com.example.Context.Database.Tables.Models.BaseAuditEntity
+import org.jetbrains.exposed.sql.Query
+
+fun Query.notDeletedAt(): Query {
+    return where {
+        var result = this as BaseAuditEntity
+        result.deletedAt.isNull()
+    }
+}
 
 

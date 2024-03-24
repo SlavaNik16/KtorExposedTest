@@ -1,9 +1,9 @@
 package com.example.Repositories.Implementation.Read
 
+import com.example.Context.Database.CommonEntity.notDeletedAt
 import com.example.Context.Database.DatabaseFactory.dbQuery
 import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Context.Database.Tables.Results.UserTableResult
-import com.example.Models.UserModel
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -15,7 +15,9 @@ class UserReadRepository : IUserReadRepository {
     override suspend fun getUserByEmail(email: String): UserTableResult? {
         return dbQuery {
             UserTable
-                .selectAll().where(UserTable.email.eq(email))
+                .selectAll()
+                .notDeletedAt()
+                .where(UserTable.email.eq(email))
                 .map{
                     rowToUser(it)
                 }
@@ -26,7 +28,9 @@ class UserReadRepository : IUserReadRepository {
     override suspend fun getUserById(id: UUID): UserTableResult? {
         return dbQuery {
             UserTable
-                .selectAll().where(UserTable.id.eq(id))
+                .selectAll()
+                .notDeletedAt()
+                .where(UserTable.id.eq(id))
                 .map{
                     rowToUser(it)
                 }

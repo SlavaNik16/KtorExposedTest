@@ -27,11 +27,11 @@ interface ICardService {
     /**
      * Обновления карточки
      */
-    suspend fun updateCard(cardModel: CardModel, userId: UUID): CardModel?
+    suspend fun updateCardUserId(cardModel: CardModel, userId: UUID): CardModel?
 
     /**
      * Удаление карточки
      */
-    suspend fun deleteCard(id: UUID, userId:UUID)
+    suspend fun deleteCard(id: UUID)
 
 }

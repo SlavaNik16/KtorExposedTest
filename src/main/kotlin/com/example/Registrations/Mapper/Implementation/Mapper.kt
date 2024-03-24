@@ -1,4 +1,4 @@
-package com.example.Services.Mapper.Implementation
+package com.example.Registrations.Mapper.Implementation
 
 
 import com.example.Context.Database.Tables.Models.CardTable
@@ -7,7 +7,7 @@ import com.example.Context.Database.Tables.Results.CardTableResult
 import com.example.Context.Database.Tables.Results.UserTableResult
 import com.example.Models.CardModel
 import com.example.Models.UserModel
-import com.example.Services.Mapper.ProfileMapper
+import com.example.Registrations.Mapper.ProfileMapper
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.firstValue
 import java.sql.ResultSet

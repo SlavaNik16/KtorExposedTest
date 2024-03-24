@@ -1,4 +1,4 @@
-package com.example.Registrations
+package com.example.Registrations.DependencyInjection
 
 import com.example.Context.Database.CommonEntity.Providers.DateTimeProvider
 import com.example.Context.Database.CommonEntity.Providers.IDateTimeProvider

@@ -1,4 +1,4 @@
-package com.example.Services.Mapper.Constants
+package com.example.Registrations.Mapper.Constants
 
 class MapperConstants {
     companion object{

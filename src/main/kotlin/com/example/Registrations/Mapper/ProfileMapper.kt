@@ -1,11 +1,11 @@
-package com.example.Services.Mapper
+package com.example.Registrations.Mapper
 
 import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Context.Database.Tables.Results.CardTableResult
 import com.example.Context.Database.Tables.Results.UserTableResult
 import com.example.Models.CardModel
 import com.example.Models.UserModel
-import com.example.Services.Mapper.Constants.MapperConstants
+import com.example.Registrations.Mapper.Constants.MapperConstants
 import org.jetbrains.exposed.sql.ResultRow
 import org.mapstruct.Mapper
 import org.mapstruct.NullValuePropertyMappingStrategy

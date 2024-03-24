@@ -1,4 +1,4 @@
-package com.example.Registrations
+package com.example.Registrations.DependencyInjection
 
 import com.example.Repositories.Implementation.Read.CardReadRepository
 import com.example.Repositories.Implementation.Write.CardWriteRepository
