@@ -7,6 +7,5 @@ import com.example.Models.UserModel
  * Репозиторий чтения UserTable
  */
 interface IUserReadRepository{
-
     suspend fun getUserByEmail(email:String): UserModel?
 }
