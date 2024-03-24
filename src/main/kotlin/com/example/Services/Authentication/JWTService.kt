@@ -7,7 +7,7 @@ import com.example.Models.UserModel
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-class JWTService {
+class JWTService : IJWTService{
     private val jwtIssuer = "testIssuerJWTToken"
     private val jwtDomain = "https://localhost:5432/"
     private val jwtSecretKey = System.getenv("JWT_SECRET_KEY")
@@ -19,7 +19,7 @@ class JWTService {
         .withIssuer(jwtDomain)
         .build()
 
-    fun generateToken(user:UserModel):String {
+    override fun generateToken(user:UserModel):String {
         return JWT.create()
             .withSubject("AppAuthentication")
             .withIssuer(jwtIssuer)
@@ -28,5 +28,5 @@ class JWTService {
             .sign(jwtAlgorithm)
     }
 
-    fun getVerifier():JWTVerifier = verifier
+    override fun getVerifier():JWTVerifier = verifier
 }

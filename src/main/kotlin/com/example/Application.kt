@@ -19,12 +19,9 @@ fun main() {
 }
 
 fun Application.module() {
-    initializeDatabase()
-    configureDependencyInjection()
-    configureMonitoring()
-    configureSerialization()
-    configureSecurity()
-
-//    configureDatabases()
-//    configureRouting()
+    initializeDatabase() //Инициализация бд
+    configureDependencyInjection() //Внедрение зависимостей
+    configureMonitoring() // Внедрения логирования
+    configureSerialization() // Внедрение json формат
+    configureSecurity() // Внедрение jwt token
 }
