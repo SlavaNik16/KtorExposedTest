@@ -9,5 +9,5 @@ interface IEntityAuditDeleted {
     /**
      * Дата удаления
      */
-    val deletedAt: Column<OffsetDateTime?>
+    var deletedAt: Column<OffsetDateTime?>
 }

@@ -8,10 +8,10 @@ interface IEntityAuditCreated {
     /**
      * Дата создания
      */
-    val createdAt: Column<OffsetDateTime>
+    var createdAt: Column<OffsetDateTime>
 
     /**
      * Кто создал
      */
-    val createdBy: Column<String>
+    var createdBy: Column<String>
 }

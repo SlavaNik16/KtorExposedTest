@@ -2,8 +2,10 @@ package com.example.Context.Database.Tables.Models
 
 import com.example.Context.Database.Tables.Enum.RoleTypes
 import com.example.Context.Database.Tables.Enum.StatusTypes
+import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.ResultRow
+import java.util.UUID
 
 object UserTable : BaseAuditEntity() {
     val surname: Column<String> = varchar("surname", 80)

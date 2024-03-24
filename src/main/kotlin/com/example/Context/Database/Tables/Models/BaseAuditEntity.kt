@@ -18,32 +18,32 @@ abstract class BaseAuditEntity : Table(),
     /**
      * Уникальный идентификатор
      */
-    override val id: Column<UUID> = uuid("id").autoGenerate()
+    override var id: Column<UUID> = uuid("id").autoGenerate()
 
     /**
      * Дата создания
      */
-    override val createdAt: Column<OffsetDateTime> = timestampWithTimeZone("createdAt")
+    override var createdAt: Column<OffsetDateTime> = timestampWithTimeZone("createdAt")
 
     /**
      * Кто создал
      */
-    override val createdBy: Column<String> = varchar("createdBy",200)
+    override var createdBy: Column<String> = varchar("createdBy",200)
 
     /**
      * Дата обновления
      */
-    override val updatedAt: Column<OffsetDateTime> = timestampWithTimeZone("updatedAt")
+    override var updatedAt: Column<OffsetDateTime> = timestampWithTimeZone("updatedAt")
 
     /**
      * Кто обновил
      */
-    override val updatedBy: Column<String> = varchar("updatedBy",200)
+    override var updatedBy: Column<String> = varchar("updatedBy",200)
 
     /**
      * Дата удаления
      */
-    override val deletedAt: Column<OffsetDateTime?> = timestampWithTimeZone("deletedAt").nullable()
+    override var deletedAt: Column<OffsetDateTime?> = timestampWithTimeZone("deletedAt").nullable()
 
     override val primaryKey: PrimaryKey = PrimaryKey(id)
 }

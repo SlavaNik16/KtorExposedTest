@@ -7,5 +7,5 @@ interface IEntityWithId {
     /**
      * Уникальный идентификатор
      */
-    val id: Column<UUID>
+    var id: Column<UUID>
 }

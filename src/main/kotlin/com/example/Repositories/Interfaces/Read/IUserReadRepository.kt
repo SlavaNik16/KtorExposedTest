@@ -8,7 +8,5 @@ import com.example.Models.UserModel
  */
 interface IUserReadRepository{
 
-    suspend fun getUserByEmail(email:String): UserTable?
-
-    suspend fun create(userModel: UserModel)
+    suspend fun getUserByEmail(email:String): UserModel?
 }
