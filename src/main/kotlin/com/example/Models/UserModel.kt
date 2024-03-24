@@ -5,7 +5,7 @@ import com.example.Context.Database.Tables.Enum.StatusTypes
 import com.example.Utils.UUIDSerializer
 import io.ktor.server.auth.*
 import kotlinx.serialization.Serializable
-import java.util.UUID
+import java.util.*
 
 @Serializable
 data class UserModel (

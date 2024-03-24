@@ -4,11 +4,9 @@ import com.example.Context.Database.DatabaseFactory.dbQuery
 import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Models.UserModel
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
-
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-
-import java.util.*
+import org.jetbrains.exposed.sql.selectAll
 
 class UserReadRepository : IUserReadRepository {
 

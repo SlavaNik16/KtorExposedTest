@@ -1,6 +1,5 @@
 package com.example.Repositories.Interfaces.Read
 
-import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Models.UserModel
 
 /**

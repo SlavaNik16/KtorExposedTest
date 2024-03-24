@@ -1,6 +1,5 @@
 package com.example.Services.Mapper
 
-import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Models.UserModel
 import com.example.Services.Mapper.Constants.MapperConstants
 import org.jetbrains.exposed.sql.ResultRow
