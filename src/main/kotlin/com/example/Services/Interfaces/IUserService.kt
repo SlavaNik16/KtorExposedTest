@@ -15,5 +15,5 @@ interface IUserService {
 
     suspend fun create(userModel: UserModel)
 
-    //fun generateAccessToken(userModel: UserModel):String
+    fun generateAccessToken(userModel: UserModel):String
 }

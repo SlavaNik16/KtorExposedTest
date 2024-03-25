@@ -49,4 +49,8 @@ class UserService(
             createdBy = "${userModel.surname} ${userModel.name}"
         )
     }
+
+    override fun generateAccessToken(userModel: UserModel): String {
+        return iJWTService.generateToken(userModel)
+    }
 }
