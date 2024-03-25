@@ -15,6 +15,7 @@ class Mapper : ProfileMapper() {
         for (row in rows){
             var row = row.resultRow
             var userModel = UserModel(
+                id = row[UserTable.id],
                 surname = row[UserTable.surname],
                 name =  row[UserTable.name],
                 email =  row[UserTable.email],
@@ -33,6 +34,7 @@ class Mapper : ProfileMapper() {
         }
         var row = row.resultRow
         var userModel = UserModel(
+            id = row[UserTable.id],
             surname = row[UserTable.surname],
             name =  row[UserTable.name],
             email =  row[UserTable.email],

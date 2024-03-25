@@ -9,6 +9,7 @@ import com.example.Repositories.Interfaces.Write.IUserWriteRepository
 import com.example.Services.Authentication.IJWTService
 import com.example.Services.Interfaces.IUserService
 import org.jetbrains.exposed.sql.insert
+import java.util.*
 
 class UserService(
     private val userReadRepository: IUserReadRepository,
@@ -25,6 +26,12 @@ class UserService(
         var userResult = userReadRepository.getUserByEmail(email) ?: return null
         return profileMapper.mapToUserModel(userResult)
     }
+
+    override suspend fun getUserById(id: UUID): UserModel? {
+        var userResult = userReadRepository.getUserById(id) ?: return null
+        return profileMapper.mapToUserModel(userResult)
+    }
+
     override suspend fun create(userModel: UserModel) {
        var user = dbQuery{
             UserTable.insert {table ->
