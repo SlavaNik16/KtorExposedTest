@@ -7,6 +7,7 @@ import com.example.Models.UserModel
  */
 interface IUserService {
 
+    suspend fun getAll(): List<UserModel>
     suspend fun getUserByEmail(email:String): UserModel?
     suspend fun create(userModel: UserModel)
 

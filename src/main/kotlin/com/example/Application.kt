@@ -1,10 +1,7 @@
 package com.example
 
 import com.example.Context.Database.DatabaseFactory.initializeDatabase
-import com.example.plugins.configureDependencyInjection
-import com.example.plugins.configureMonitoring
-import com.example.plugins.configureSecurity
-import com.example.plugins.configureSerialization
+import com.example.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -24,4 +21,5 @@ fun Application.module() {
     configureMonitoring() // Внедрения логирования
     configureSerialization() // Внедрение json формат
     configureSecurity() // Внедрение jwt token
+    configureRouting() //Назначение контроллеров
 }

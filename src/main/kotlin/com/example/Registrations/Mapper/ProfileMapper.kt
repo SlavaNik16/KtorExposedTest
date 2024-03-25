@@ -15,6 +15,7 @@ import org.mapstruct.ReportingPolicy
     unmappedTargetPolicy = ReportingPolicy.WARN
 )
 abstract class ProfileMapper {
+    abstract fun mapToUsersModel(rows: List<UserTableResult>): List<UserModel>
     abstract fun mapToUserModel(row: UserTableResult?): UserModel?
     abstract fun mapToCardsModel(rows: List<CardTableResult>): List<CardModel>
     abstract fun mapToCardModel(row: CardTableResult?): CardModel?

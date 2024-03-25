@@ -16,6 +16,11 @@ class UserService(
     private val iJWTService: IJWTService,
     private val profileMapper: ProfileMapper
 ) : IUserService {
+    override suspend fun getAll(): List<UserModel> {
+        var userResult = userReadRepository.getAll()
+        return profileMapper.mapToUsersModel(userResult)
+    }
+
     override suspend fun getUserByEmail(email: String): UserModel? {
         var userResult = userReadRepository.getUserByEmail(email) ?: return null
         return profileMapper.mapToUserModel(userResult)

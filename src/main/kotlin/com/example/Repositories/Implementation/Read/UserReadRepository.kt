@@ -11,15 +11,26 @@ import org.jetbrains.exposed.sql.selectAll
 import java.util.*
 
 class UserReadRepository : IUserReadRepository {
+    override suspend fun getAll(): List<UserTableResult> {
+        return dbQuery {
+            UserTable
+                .selectAll()
+                .notDeletedAt(UserTable)
+                .mapNotNull{
+                    rowToUser(it)
+                }.toList()
+        }
+    }
 
     override suspend fun getUserByEmail(email: String): UserTableResult? {
         return dbQuery {
             UserTable
                 .selectAll()
-                .notDeletedAt()
+                .notDeletedAt(UserTable)
                 .where(UserTable.email.eq(email))
                 .map{
                     rowToUser(it)
+
                 }
                 .singleOrNull()
         }
@@ -29,7 +40,7 @@ class UserReadRepository : IUserReadRepository {
         return dbQuery {
             UserTable
                 .selectAll()
-                .notDeletedAt()
+                .notDeletedAt(UserTable)
                 .where(UserTable.id.eq(id))
                 .map{
                     rowToUser(it)
@@ -44,7 +55,7 @@ class UserReadRepository : IUserReadRepository {
         }
         var userTableResult = UserTableResult(
             resultRow = row,
-            userTable = row as UserTable
+            userTableId = row[UserTable.id]
         )
         return userTableResult
     }

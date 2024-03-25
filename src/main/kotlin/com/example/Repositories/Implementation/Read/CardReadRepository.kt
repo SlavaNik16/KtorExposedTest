@@ -14,7 +14,7 @@ class CardReadRepository : ICardReadRepository {
     override suspend fun getAll(): List<CardTableResult> {
         return dbQuery{
             CardTable.selectAll()
-                .notDeletedAt()
+                .notDeletedAt(CardTable)
                 .mapNotNull {
                     rowToCard(it)
                 }.toList()
@@ -24,7 +24,7 @@ class CardReadRepository : ICardReadRepository {
     override suspend fun getById(id: UUID): CardTableResult? {
         return dbQuery{
             CardTable.selectAll()
-                .notDeletedAt()
+                .notDeletedAt(CardTable)
                 .where(CardTable.id.eq(id))
                 .map {
                     rowToCard(it)
@@ -38,7 +38,7 @@ class CardReadRepository : ICardReadRepository {
         }
         var cardTableResult = CardTableResult(
             resultRow = row,
-            cardTable = row as CardTable
+            cardTableId = row[CardTable.id]
         )
         return cardTableResult
     }

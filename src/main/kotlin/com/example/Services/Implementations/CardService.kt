@@ -1,13 +1,16 @@
 package com.example.Services.Implementations
 
+import com.example.Context.Database.CommonEntity.Providers.DateTimeProvider
 import com.example.Context.Database.DatabaseFactory.dbQuery
 import com.example.Context.Database.Tables.Models.CardTable
+import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Models.CardModel
 import com.example.Registrations.Mapper.ProfileMapper
 import com.example.Repositories.Interfaces.Read.ICardReadRepository
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import com.example.Repositories.Interfaces.Write.ICardWriteRepository
 import com.example.Services.Interfaces.ICardService
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.update
@@ -46,7 +49,7 @@ class CardService(
                 table[isVerified] = cardModel.isVerified
             }
         }
-        cardWriteRepository.add(card.table as CardTable, "${user.userTable.surname} ${user.userTable.name}")
+        cardWriteRepository.add(card.table as CardTable, "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}")
         return cardModel
     }
 
@@ -71,13 +74,21 @@ class CardService(
         }
 
         var cardResult = cardReadRepository.getById(cardModel.id)
-        cardWriteRepository.update(cardResult!!.cardTable as CardTable, "${user.userTable.surname} ${user.userTable.name}")
+        cardWriteRepository.update(cardResult!!.cardTableId as CardTable, "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}")
         return profileMapper.mapToCardModel(cardResult)
     }
 
     override suspend fun deleteCard(id: UUID) {
         var cardResult = cardReadRepository.getById(id) ?: return
-        cardWriteRepository.delete(cardResult.cardTable)
+        dbQuery {
+            CardTable.update(
+                where = {
+                    CardTable.id.eq(cardResult.cardTableId)
+                }
+            ){
+                it[CardTable.deletedAt] = DateTimeProvider().UtcNow()
+            }
+        }
     }
 
 }

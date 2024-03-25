@@ -10,6 +10,23 @@ import com.example.Models.UserModel
 import com.example.Registrations.Mapper.ProfileMapper
 
 class Mapper : ProfileMapper() {
+    override fun mapToUsersModel(rows: List<UserTableResult>): List<UserModel> {
+        var usersModel: MutableList<UserModel> = mutableListOf()
+        for (row in rows){
+            var row = row.resultRow
+            var userModel = UserModel(
+                surname = row[UserTable.surname],
+                name =  row[UserTable.name],
+                email =  row[UserTable.email],
+                password = row[UserTable.password],
+                roleType = row[UserTable.roleType],
+                statusType = row[UserTable.statusType],
+            )
+            usersModel.add(userModel)
+        }
+        return usersModel
+    }
+
     override fun mapToUserModel(row: UserTableResult?): UserModel? {
         if(row == null){
             return null
