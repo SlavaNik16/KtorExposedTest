@@ -5,6 +5,8 @@ val logback_version: String by project
 val exposed_version: String by project
 val postgresql_version: String by project
 val hikari_version: String by project
+val mapstruct_version: String by project
+val koin_version: String by project
 
 plugins {
     kotlin("jvm") version "1.9.23"
@@ -27,6 +29,11 @@ repositories {
 }
 
 dependencies {
+    implementation("io.insert-koin:koin-ktor:$koin_version")
+    implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
+
+    implementation("org.mapstruct:mapstruct:$mapstruct_version")
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstruct_version")
 
     implementation("com.zaxxer:HikariCP:$hikari_version")
     implementation("org.postgresql:postgresql:$postgresql_version")
