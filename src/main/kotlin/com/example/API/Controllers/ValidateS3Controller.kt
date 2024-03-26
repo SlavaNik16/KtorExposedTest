@@ -28,9 +28,11 @@ fun Route.initValidateS3Controller() {
                 var postman = call.request.headers["x-amz-content-sha256"]
                 var headers = TreeMap<String,String>()
                 headers.put("host", "127.0.0.1:8080")
+                headers.put("x-amz-content-sha256", "UNSIGNED-PAYLOAD")
                 var queryParametes = TreeMap<String,String>()
                 queryParametes.put("message", message.toString())
-                var resultMap = AWSV4Auth.Builder("AKIDEXAMPLE","wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY")
+                var resultMap = AWSV4Auth.Builder(
+                    "AKIDEXAMPLE","wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY")
                     .queryParametes(queryParametes)
                     .awsHeaders(headers)
                     .payload(null)
