@@ -29,6 +29,9 @@ repositories {
 }
 
 dependencies {
+    implementation("commons-codec:commons-codec:1.16.1")
+    implementation("aws.sdk.kotlin:s3:1.1.4")
+
     implementation("io.insert-koin:koin-ktor:$koin_version")
     implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
 
