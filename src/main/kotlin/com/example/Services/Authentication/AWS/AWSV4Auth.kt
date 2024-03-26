@@ -26,7 +26,6 @@ class AWSV4Auth {
     }
     class Builder {
 
-
         var accessKeyID: String
         var secretAccessKey: String
         var regionName: String =  "spb"
