@@ -68,14 +68,14 @@ fun canonicalHeaders(request:Request): String {
     return parts.joinToString("\n");
 }
 
-fun canonicalString(request:Request):String {
+fun canonicalString(request:Request, postman:String):String {
     var parts = mutableListOf<String>();
     parts.add(request.req["method"].toString());
     parts.add(request.req["pathname"].toString());
     parts.add("");
     parts.add(canonicalHeaders(request).toString()+"\n");
     parts.add(request.req["header"].toString());
-    parts.add("UNSIGNED-PAYLOAD");
+    //parts.add(postman);
     return parts.joinToString("\n");
 }
 
@@ -84,7 +84,7 @@ fun createScope(date:String, region:String, serviceName:String):String {
         date.substring(0, 8),
         region,
         serviceName,
-        "aws4_request"
+        v4Identifier
     ).joinToString("/");
 }
 fun credentialString(datetime:String):String  {
@@ -102,35 +102,36 @@ fun getSigningKey(date:String,region:String,service:String):String
     var signingKey = hmac(kService, v4Identifier);
     return signingKey;
 }
-fun signature(datetime:String, request:Request):String {
+fun signature(datetime:String, request:Request, postman:String):String {
     var signingKey = getSigningKey(
         datetime.substring(0, 8),
         region,
         serviceName
     );
-    return hmac(signingKey, stringToSign(datetime, request));
+    return hmac(signingKey, stringToSign(datetime, request,postman));
 }
 
-fun stringToSign(datetime:String, request:Request):String {
+fun stringToSign(datetime:String, request:Request, postman: String):String {
     var parts = mutableListOf<String>();
     parts.add(algorithm);
     parts.add(datetime);
     parts.add(credentialString(datetime));
-    parts.add(hashHmacSha256(canonicalString(request)));
+    parts.add(hashHmacSha256(canonicalString(request,postman)));
     return parts.joinToString("\n");
 }
-fun result(request: Request,datetime: String):String{
-//    return (canonicalString(request)+"\n"+
-//            stringToSign(datetime,request)+"\n"+
-//            signature(datetime,request) + "\n" +
-//            authorization(request,datetime)+ "\n")
-    return authorization(request, datetime)
+fun result(request: Request,datetime: String,postman: String):String{
+    return authorization(request, datetime, postman)
 }
-fun authorization(request:Request, datetime:String):String {
+fun resultAll(request: Request,datetime: String,postman: String):String{
+        return (canonicalString(request,postman)+"\n"+
+            stringToSign(datetime,request,postman)+"\n"+
+            signature(datetime,request,postman) + "\n")
+}
+fun authorization(request:Request, datetime:String,postman:String):String {
     var parts = mutableListOf<String>();
     var credString = credentialString(datetime);
     parts.add("AWS4-HMAC-SHA256 Credential=$accessKeyId/$credString");
     parts.add("SignedHeaders=" + request.req["header"]);
-    parts.add("Signature=" + signature(datetime, request));
+    parts.add("Signature=" + signature(datetime, request, postman));
     return parts.joinToString(", ")
 }
