@@ -1,6 +1,5 @@
 package com.example.API.Controllers
 
-import com.example.Context.Database.Tables.Models.UserTable.email
 import com.example.Models.Request.LoginRequest
 import com.example.Models.Request.RegisterRequest
 import com.example.Models.Response.ErrorResponse
