@@ -49,6 +49,7 @@ class AWSV4Auth {
             return this;
         }
 
+
         fun serviceName(serviceName:String): Builder
         {
             this.serviceName = serviceName;
