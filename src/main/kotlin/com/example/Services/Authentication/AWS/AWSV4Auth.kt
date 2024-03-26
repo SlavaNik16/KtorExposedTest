@@ -1,5 +1,6 @@
 package com.example.Services.Authentication.AWS
 
+import io.ktor.util.*
 import java.math.BigInteger
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -98,7 +99,6 @@ class AWSV4Auth {
         }
     }
 
-
     private var accessKeyID: String
     private var secretAccessKey: String
     private var regionName: String =  "spb"
@@ -152,12 +152,6 @@ class AWSV4Auth {
         return canonicalURL.toString()
     }
 
-    /**
-     * Task 2: Create a signature version 4 of the string to be signed
-     *
-     * @param canonicalURL
-     * @return
-     */
     private fun prepareStringToSign(canonicalURL: String): String {
         var stringToSign = HMACAlgorithm + "\n"
         stringToSign += xAmzDate + "\n"
@@ -173,15 +167,8 @@ class AWSV4Auth {
 
     private fun calculateSignature(stringToSign: String): String? {
         try {
-            /* Step 3.1 Generate the signature key */
             val signatureKey: ByteArray = getSignatureKey(secretAccessKey, currentDate, regionName, serviceName)
-
-
-            /* Step 3.2 Calculate the signature. */
             val signature = HmacSHA256(signatureKey, stringToSign)
-
-
-            /* Step 3.2.1 Processing the signature code */
             val strHexSignature = bytesToHex(signature)
             return strHexSignature
         } catch (ex: Exception) {
@@ -190,11 +177,6 @@ class AWSV4Auth {
         return null
     }
 
-    /**
-     * Task 4: Add signature information to the request and return headers
-     *
-     * @return
-     */
     fun getHeaders(): Map<String, String>? {
         awsHeaders?.put("x-amz-date", xAmzDate.toString())
         val canonicalURL = prepareCanonicalRequest()
