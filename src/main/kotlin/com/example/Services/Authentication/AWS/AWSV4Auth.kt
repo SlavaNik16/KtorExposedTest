@@ -115,7 +115,7 @@ class AWSV4Auth {
     private fun prepareCanonicalRequest(): String {
         val canonicalURL = StringBuilder("")
         canonicalURL.append(httpMethodName).append("\n")
-        canonicalURI = if (canonicalURI == null || canonicalURI!!.trim().isEmpty()) "/" else canonicalURI
+        canonicalURI = if (canonicalURI == null || canonicalURI.trim().isEmpty()) "/" else canonicalURI
         canonicalURL.append(canonicalURI).append("\n")
         val queryString = StringBuilder("")
         if (queryParametes != null && !queryParametes.isEmpty()) {
@@ -123,10 +123,8 @@ class AWSV4Auth {
                 queryString.append(key).append("=").append(encodeParameter(value)).append("&")
             }
             queryString.deleteCharAt(queryString.lastIndexOf("&"))
-            queryString.append("\n")
-        } else {
-            queryString.append("\n")
         }
+        queryString.append("\n")
         canonicalURL.append(queryString)
 
         val signedHeaders = StringBuilder("")
@@ -135,10 +133,9 @@ class AWSV4Auth {
                 signedHeaders.append(key).append(";")
                 canonicalURL.append(key).append(":").append(value).append("\n")
             }
-            canonicalURL.append("\n")
-        } else {
-            canonicalURL.append("\n")
+
         }
+        canonicalURL.append("\n")
 
         strSignedHeader = signedHeaders.substring(0, signedHeaders.length - 1)
         canonicalURL.append(strSignedHeader).append("\n")
@@ -147,6 +144,7 @@ class AWSV4Auth {
 
         if (debug) {
             println("##Canonical Request:\n$canonicalURL")
+            println("\n##Payload:$payload")
         }
 
         return canonicalURL.toString()
@@ -155,7 +153,7 @@ class AWSV4Auth {
     private fun prepareStringToSign(canonicalURL: String): String {
         var stringToSign = HMACAlgorithm + "\n"
         stringToSign += xAmzDate + "\n"
-        stringToSign += ((currentDate + "/" + regionName).toString() + "/" + serviceName + "/" + aws4Request).toString() + "\n"
+        stringToSign += (currentDate + "/" + regionName + "/" + serviceName + "/" + aws4Request) + "\n"
         stringToSign += generateHex(canonicalURL)
 
         if (debug) {
@@ -178,7 +176,7 @@ class AWSV4Auth {
     }
 
     fun getHeaders(): Map<String, String>? {
-        awsHeaders?.put("x-amz-date", xAmzDate.toString())
+        awsHeaders.put("x-amz-date", xAmzDate)
         val canonicalURL = prepareCanonicalRequest()
         val stringToSign = prepareStringToSign(canonicalURL)
         val signature = calculateSignature(stringToSign)

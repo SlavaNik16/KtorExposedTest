@@ -12,15 +12,6 @@ import java.util.TreeMap
 
 
 fun Route.initValidateS3Controller() {
-    fun generateHex(data:String):String{
-        var digest  = MessageDigest.getInstance("SHA-256")
-        digest.update(data.toByteArray(Charsets.UTF_8))
-        var digests: ByteArray = digest.digest()
-        return with(StringBuilder()){
-            digests.forEach { b-> append(String.format("%02x", b)) }
-            toString().lowercase()
-        }
-    }
     route("/ser") {
         get("/validate") {
             try {
