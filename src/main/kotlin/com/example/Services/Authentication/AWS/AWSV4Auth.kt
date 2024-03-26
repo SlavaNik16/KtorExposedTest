@@ -1,5 +1,6 @@
 package com.example.Services.Authentication.AWS
 
+import java.math.BigInteger
 import java.net.URLEncoder
 import java.security.MessageDigest
 import java.text.DateFormat
@@ -7,7 +8,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import kotlin.text.toCharArray
 
 class AWSV4Auth {
 
@@ -31,7 +31,7 @@ class AWSV4Auth {
         var regionName: String =  "spb"
         var serviceName: String = "s3"
         var httpMethodName: String = "GET"
-        var canonicalURI: String = "127.0.0.1:8080"
+        var canonicalURI: String = "/"
         var queryParametes: TreeMap<String, String> = TreeMap()
         var awsHeaders: TreeMap<String, String> = TreeMap()
         var payload: String? = null
@@ -98,17 +98,17 @@ class AWSV4Auth {
     }
 
 
-    private var accessKeyID: String = "AKIA5TRHZWO3QGECXEHC"
-    private var secretAccessKey: String = "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"
+    private var accessKeyID: String
+    private var secretAccessKey: String
     private var regionName: String =  "spb"
     private var serviceName: String = "s3"
     private var httpMethodName: String = "GET"
-    private var canonicalURI: String = "127.0.0.1:8080"
+    private var canonicalURI: String = "/"
     private var queryParametes: TreeMap<String, String>
     private var awsHeaders: TreeMap<String, String>
     private var payload: String? = null
     private var debug = false
-    private var strSignedHeader: String = "/s3/validate"
+    private var strSignedHeader: String = "/ser/validate"
     private var xAmzDate: String = getTimeStamp()
     private var currentDate: String = getDate()
     private fun prepareCanonicalRequest(): String {
@@ -134,7 +134,7 @@ class AWSV4Auth {
                 signedHeaders.append(key).append(";")
                 canonicalURL.append(key).append(":").append(value).append("\n")
             }
-            canonicalURL.append("\n")
+            //canonicalURL.append("\n")
         } else {
             canonicalURL.append("\n")
         }
@@ -158,22 +158,9 @@ class AWSV4Auth {
      * @return
      */
     private fun prepareStringToSign(canonicalURL: String): String {
-        var stringToSign = ""
-
-
-        /* Step 2.1 Start with the algorithm name and wrap. */
-        stringToSign = HMACAlgorithm + "\n"
-
-
-        /* Step 2.2 Add date and wrap. */
+        var stringToSign = HMACAlgorithm + "\n"
         stringToSign += xAmzDate + "\n"
-
-
-        /* Step 2.3 Add the certification scope and wrap. */
         stringToSign += ((currentDate + "/" + regionName).toString() + "/" + serviceName + "/" + aws4Request).toString() + "\n"
-
-
-        /* Step 2.4 Add the canonical URL hash result returned by task 1, and then wrap the line. */
         stringToSign += generateHex(canonicalURL)
 
         if (debug) {
@@ -183,12 +170,6 @@ class AWSV4Auth {
         return stringToSign
     }
 
-    /**
-     * Task 3: Calculate signatures for AWS Signature Version 4
-     *
-     * @param stringToSign
-     * @return
-     */
     private fun calculateSignature(stringToSign: String): String? {
         try {
             /* Step 3.1 Generate the signature key */
@@ -252,10 +233,7 @@ class AWSV4Auth {
         var digest  = MessageDigest.getInstance("SHA-256")
         digest.update(data.toByteArray(Charsets.UTF_8))
         var digests: ByteArray = digest.digest()
-        return with(StringBuilder()){
-            digests.forEach { b-> append(String.format("%064X", b)) }
-            toString().lowercase()
-        }
+        return String.format("%064x", BigInteger(1, digests))
     }
 
     fun HmacSHA256(key:ByteArray, data:String):ByteArray{
@@ -268,7 +246,7 @@ class AWSV4Auth {
 
     fun getSignatureKey(key:String,  date:String, regionName:String, serviceName:String):ByteArray
     {
-        var KSecret = ("AWS4".plus(key)).toByteArray(Charsets.UTF_8)
+        var KSecret = ("AWS4"+key).toByteArray(Charsets.UTF_8)
         var kDate = HmacSHA256(KSecret,date)
         var kRegion = HmacSHA256(kDate, regionName);
         var kService = HmacSHA256(kRegion, serviceName);
@@ -292,12 +270,14 @@ class AWSV4Auth {
         var dateFormat: DateFormat = SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));//server timezone
         return dateFormat.format(Date());
+        //return "20240326T064455Z"
     }
 
     private fun getDate():String {
         var dateFormat: DateFormat = SimpleDateFormat("yyyyMMdd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));//server timezone
         return dateFormat.format(Date());
+        //return "20240326"
     }
 
     private fun encodeParameter(param:String):String{
