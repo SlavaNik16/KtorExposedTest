@@ -2,6 +2,7 @@ package com.example.Services.Authentication.AWS
 
 import java.math.BigInteger
 import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -26,8 +27,8 @@ class AWSV4Auth {
     class Builder {
 
 
-        var accessKeyID: String = "AKIA5TRHZWO3QGECXEHC"
-        var secretAccessKey: String = "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"
+        var accessKeyID: String
+        var secretAccessKey: String
         var regionName: String =  "spb"
         var serviceName: String = "s3"
         var httpMethodName: String = "GET"
@@ -79,7 +80,7 @@ class AWSV4Auth {
             return this;
         }
 
-        fun payload(payload:String): Builder
+        fun payload(payload:String?): Builder
         {
             this.payload = payload;
             return this;
@@ -134,7 +135,7 @@ class AWSV4Auth {
                 signedHeaders.append(key).append(";")
                 canonicalURL.append(key).append(":").append(value).append("\n")
             }
-            //canonicalURL.append("\n")
+            canonicalURL.append("\n")
         } else {
             canonicalURL.append("\n")
         }
@@ -183,7 +184,7 @@ class AWSV4Auth {
             /* Step 3.2.1 Processing the signature code */
             val strHexSignature = bytesToHex(signature)
             return strHexSignature
-        } catch (ex: java.lang.Exception) {
+        } catch (ex: Exception) {
             ex.printStackTrace()
         }
         return null
@@ -223,9 +224,9 @@ class AWSV4Auth {
     }
 
     private fun buildAuthorizationString(strSignature: String): String {
-        return (((((HMACAlgorithm + " "
-                + "Credential=" + accessKeyID).toString() + "/" + getDate() + "/" + regionName).toString() + "/" + serviceName + "/" + aws4Request).toString() + ", "
-                + "SignedHeaders=" + strSignedHeader).toString() + ", "
+        return (HMACAlgorithm + " "
+                + "Credential=" + accessKeyID + "/" + getDate() + "/" + regionName + "/" + serviceName + "/" + aws4Request + ", "
+                + "SignedHeaders=" + strSignedHeader + ", "
                 + "Signature=" + strSignature)
     }
 
@@ -254,16 +255,16 @@ class AWSV4Auth {
         return signingKey;
     }
 
-    private  val hexArray = "0123456789ABCDEF".lowercase().toCharArray();
+    private  val hexArray = "0123456789ABCDEF".lowercase().toByteArray(StandardCharsets.US_ASCII);
 
     private fun bytesToHex(bytes:ByteArray): String  {
-        var hexChars = CharArray(bytes.size * 2);
+        var hexChars = ByteArray(bytes.size * 2);
         for (j in bytes.indices) {
             var v = bytes[j].toInt() and 0xFF;
             hexChars[j * 2] = hexArray[v.ushr(4)];
             hexChars[j * 2 + 1] = hexArray[v and 0x0F];
         }
-        return String(hexChars)
+        return String(hexChars,StandardCharsets.UTF_8)
     }
 
     private fun getTimeStamp():String {
