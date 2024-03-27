@@ -12,7 +12,7 @@ import java.util.*
 
 class CardReadRepository : ICardReadRepository {
     override suspend fun getAll(): List<CardTableResult> {
-        return dbQuery{
+        return dbQuery {
             CardTable.selectAll()
                 .where {
                     notDeletedAt(CardTable)
@@ -24,7 +24,7 @@ class CardReadRepository : ICardReadRepository {
     }
 
     override suspend fun getById(id: UUID): CardTableResult? {
-        return dbQuery{
+        return dbQuery {
             CardTable.selectAll()
                 .where {
                     notDeletedAt(CardTable) and CardTable.id.eq(id)
@@ -34,8 +34,8 @@ class CardReadRepository : ICardReadRepository {
         }
     }
 
-    private fun rowToCard(row: ResultRow?): CardTableResult?{
-        if(row == null){
+    private fun rowToCard(row: ResultRow?): CardTableResult? {
+        if (row == null) {
             return null
         }
         var cardTableResult = CardTableResult(

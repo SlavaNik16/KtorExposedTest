@@ -38,7 +38,7 @@ class AwsBuilder {
     private var canonicalURI: String? = null
     var CanonicalURI: String?
         get() {
-            return if(canonicalURI == null || canonicalURI?.trim()!!.isEmpty()) "/" else canonicalURI
+            return if (canonicalURI == null || canonicalURI?.trim()!!.isEmpty()) "/" else canonicalURI
         }
         set(value) {
             canonicalURI = value
@@ -87,6 +87,7 @@ class AwsBuilder {
         this.serviceName = serviceName;
         return this;
     }
+
     fun initHTTPMethod(httpMethodName: HttpMethod): AwsBuilder {
         this.httpMethodName = httpMethodName;
         return this;

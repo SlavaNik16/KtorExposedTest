@@ -5,7 +5,7 @@ import com.example.Models.UserModel
 
 interface IJWTService {
 
-    fun generateToken(user: UserModel):String
+    fun generateToken(user: UserModel): String
 
     fun getVerifier(): JWTVerifier
 }

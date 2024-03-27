@@ -6,7 +6,6 @@ import com.example.Repositories.Interfaces.IRepositoryWriter
 /**
  * Репозиторий записи CardTable
  */
-interface ICardWriteRepository : IRepositoryWriter<CardTable>
-{
+interface ICardWriteRepository : IRepositoryWriter<CardTable> {
 
 }

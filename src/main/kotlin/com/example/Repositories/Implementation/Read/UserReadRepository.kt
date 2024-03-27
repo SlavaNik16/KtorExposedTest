@@ -15,7 +15,7 @@ class UserReadRepository : IUserReadRepository {
         return dbQuery {
             UserTable
                 .selectAll()
-                .where{
+                .where {
                     notDeletedAt(UserTable)
                 }.mapNotNull {
                     rowToUser(it)

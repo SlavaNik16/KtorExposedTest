@@ -16,5 +16,5 @@ interface ICardReadRepository {
     /**
      * Получение карточки по идентификатору
      */
-    suspend fun getById(id:UUID): CardTableResult?
+    suspend fun getById(id: UUID): CardTableResult?
 }

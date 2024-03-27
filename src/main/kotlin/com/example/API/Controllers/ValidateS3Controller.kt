@@ -10,7 +10,7 @@ import io.ktor.server.routing.*
 import java.util.*
 
 fun Route.initValidateS3Controller() {
-    fun getValidate(access_key: String, secret_key:String, request:ApplicationRequest):AwsBuilder {
+    fun getValidate(access_key: String, secret_key: String, request: ApplicationRequest): AwsBuilder {
         var awsHeader = TreeMap<String, String>()
         awsHeader.put("host", "127.0.0.1:8080")
 
@@ -21,12 +21,13 @@ fun Route.initValidateS3Controller() {
             .initPayload(null)
             .initDebug()
     }
+
     var access_key = System.getenv("Access_Key")
-    var secret_key =System.getenv("Secret_Key")
+    var secret_key = System.getenv("Secret_Key")
     route("/aws") {
         get("/verification") {
             try {
-                var genereteToken =getValidate(access_key, secret_key, call.request)
+                var genereteToken = getValidate(access_key, secret_key, call.request)
                     .build()
                     .getValidateStart()
                 var tokenAnswer = call.request.headers["Authorization"]
@@ -47,11 +48,14 @@ fun Route.initValidateS3Controller() {
                 var queryParametes = TreeMap<String, String>()
                 queryParametes.put("message", message.toString())
                 queryParametes.put("list-type", list_type.toString())
-                if(message.isNullOrBlank() || list_type.isNullOrBlank() ){
-                    call.respond(HttpStatusCode.BadRequest, ErrorResponse(400, "Переданы не все параметры: $queryParametes"))
+                if (message.isNullOrBlank() || list_type.isNullOrBlank()) {
+                    call.respond(
+                        HttpStatusCode.BadRequest,
+                        ErrorResponse(400, "Переданы не все параметры: $queryParametes")
+                    )
                     return@post
                 }
-                var genereteToken =getValidate(access_key, secret_key, call.request)
+                var genereteToken = getValidate(access_key, secret_key, call.request)
                     .initQueryParametes(queryParametes)
                     .build()
                     .getValidateStart()
@@ -60,7 +64,10 @@ fun Route.initValidateS3Controller() {
                     call.respond(HttpStatusCode.Forbidden, ErrorResponse(403, "Недействительный запрос!!!"))
                     return@post
                 }
-                call.respond(HttpStatusCode.OK, "Токен действительный! Были отправлены следующие данные:\n$queryParametes")
+                call.respond(
+                    HttpStatusCode.OK,
+                    "Токен действительный! Были отправлены следующие данные:\n$queryParametes"
+                )
             } catch (e: Exception) {
                 call.respond(HttpStatusCode.Conflict, ErrorResponse(409, e.message ?: Constants.GENERAL))
             }

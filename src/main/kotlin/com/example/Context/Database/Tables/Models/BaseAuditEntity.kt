@@ -13,8 +13,7 @@ abstract class BaseAuditEntity : Table(),
     IEntityWithId,
     IEntityAuditCreated,
     IEntityAuditUpdated,
-    IEntityAuditDeleted
-{
+    IEntityAuditDeleted {
 
     /**
      * Уникальный идентификатор
@@ -24,22 +23,24 @@ abstract class BaseAuditEntity : Table(),
     /**
      * Дата создания
      */
-    override val createdAt: Column<OffsetDateTime> = timestampWithTimeZone("createdAt").default(DateTimeProvider().UtcNow())
+    override val createdAt: Column<OffsetDateTime> =
+        timestampWithTimeZone("createdAt").default(DateTimeProvider().UtcNow())
 
     /**
      * Кто создал
      */
-    override val createdBy: Column<String> = varchar("createdBy",200).default("ApiExampleApp")
+    override val createdBy: Column<String> = varchar("createdBy", 200).default("ApiExampleApp")
 
     /**
      * Дата обновления
      */
-    override val updatedAt: Column<OffsetDateTime> = timestampWithTimeZone("updatedAt").default(DateTimeProvider().UtcNow())
+    override val updatedAt: Column<OffsetDateTime> =
+        timestampWithTimeZone("updatedAt").default(DateTimeProvider().UtcNow())
 
     /**
      * Кто обновил
      */
-    override val updatedBy: Column<String> = varchar("updatedBy",200).default("ApiExampleApp")
+    override val updatedBy: Column<String> = varchar("updatedBy", 200).default("ApiExampleApp")
 
     /**
      * Дата удаления

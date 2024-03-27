@@ -9,7 +9,7 @@ import java.util.*
 
 
 @Serializable
-data class UserModel (
+data class UserModel(
     @Serializable(with = UUIDSerializer::class)
     var id: UUID = UUID.randomUUID(),
     var surname: String,
@@ -18,4 +18,4 @@ data class UserModel (
     var password: String,
     var roleType: RoleTypes = RoleTypes.User,
     var statusType: StatusTypes = StatusTypes.Offline
-): Principal
+) : Principal

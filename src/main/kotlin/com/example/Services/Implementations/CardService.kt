@@ -48,7 +48,10 @@ class CardService(
                 table[isVerified] = cardModel.isVerified
             }
         }
-        cardWriteRepository.add(card.table as CardTable, "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}")
+        cardWriteRepository.add(
+            card.table as CardTable,
+            "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}"
+        )
         return cardModel
     }
 
@@ -73,7 +76,10 @@ class CardService(
         }
 
         var cardResult = cardReadRepository.getById(cardModel.id)
-        cardWriteRepository.update(cardResult!!.cardTableId as CardTable, "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}")
+        cardWriteRepository.update(
+            cardResult!!.cardTableId as CardTable,
+            "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}"
+        )
         return profileMapper.mapToCardModel(cardResult)
     }
 
@@ -84,7 +90,7 @@ class CardService(
                 where = {
                     CardTable.id.eq(cardResult.cardTableId)
                 }
-            ){
+            ) {
                 it[CardTable.deletedAt] = DateTimeProvider().UtcNow()
             }
         }

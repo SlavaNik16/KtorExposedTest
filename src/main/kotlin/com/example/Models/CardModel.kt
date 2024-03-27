@@ -8,7 +8,7 @@ import java.time.OffsetDateTime
 import java.util.*
 
 @Serializable
-data class CardModel (
+data class CardModel(
     @Serializable(with = UUIDSerializer::class)
     var id: UUID = UUID.randomUUID(),
     @Serializable(with = UUIDSerializer::class)
@@ -17,5 +17,5 @@ data class CardModel (
     val description: String?,
     @Serializable(with = OffsetDateTimeSerializer::class)
     val createdAt: OffsetDateTime = DateTimeProvider().UtcNow(),
-    val isVerified:Boolean = false,
+    val isVerified: Boolean = false,
 )

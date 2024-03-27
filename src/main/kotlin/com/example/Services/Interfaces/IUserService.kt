@@ -9,11 +9,11 @@ import java.util.*
 interface IUserService {
 
     suspend fun getAll(): List<UserModel>
-    suspend fun getUserByEmail(email:String): UserModel?
+    suspend fun getUserByEmail(email: String): UserModel?
 
-    suspend fun getUserById(id:UUID): UserModel?
+    suspend fun getUserById(id: UUID): UserModel?
 
     suspend fun create(userModel: UserModel)
 
-    fun generateAccessToken(userModel: UserModel):String
+    fun generateAccessToken(userModel: UserModel): String
 }
