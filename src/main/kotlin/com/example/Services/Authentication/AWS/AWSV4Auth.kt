@@ -23,6 +23,7 @@ class AWSV4Auth {
 
     private var build:AwsBuilder
     private var signedHeader:String = ""
+    private var payloadHesh:String = ""
     private var xAmzDate: String = getTimeStamp()
     private var currentDate: String = getDate()
 
@@ -55,7 +56,7 @@ class AWSV4Auth {
 
         signedHeader = signedHeaders.substring(0, signedHeaders.length - 1)
         canonicalURL.append(signedHeader).append("\n")
-        canonicalURL.append((generateHex(build.Payload!!)))
+        canonicalURL.append(payloadHesh)
         if (build.Debug) {
             println("##Canonical Request:\n$canonicalURL\n")
         }
@@ -84,25 +85,22 @@ class AWSV4Auth {
         return strHexSignature
     }
 
-    fun getValidateStart(): Map<String, String>? {
+    fun getValidateStart(): String {
         build.AwsHeaders.put("x-amz-date", xAmzDate)
+        payloadHesh = generateHex(build.Payload.toString())
+        build.AwsHeaders.put("x-amz-content-sha256", payloadHesh)
         val canonicalURL = prepareCanonicalRequest()
         val stringToSign = prepareStringToSign(canonicalURL)
         val signature = calculateSignature(stringToSign)
 
-        val header: MutableMap<String, String> = HashMap(0)
-        header["x-amz-date"] = xAmzDate.toString()
-        header["Authorization"] = buildAuthorizationString(signature)
+        var resultToken=  buildAuthorizationString(signature)
 
         if (build.Debug) {
-            println("##Signature:\n$signature")
-            println("##Header:")
-            for ((key, value) in header) {
-                println("$key = $value")
-            }
+            println("\n##Signature:\n$signature")
+            println("##Token:\n$resultToken")
             println("================================")
         }
-        return header
+        return resultToken
     }
 
     private fun buildAuthorizationString(strSignature: String): String {

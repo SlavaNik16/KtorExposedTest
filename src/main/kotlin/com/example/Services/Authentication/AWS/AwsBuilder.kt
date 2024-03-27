@@ -1,6 +1,6 @@
 package com.example.Services.Authentication.AWS
 
-import com.example.Services.Authentication.AWS.Enums.HTTPMethods
+import io.ktor.http.*
 import java.util.*
 
 class AwsBuilder {
@@ -17,7 +17,7 @@ class AwsBuilder {
         private set(value) {
             secretAccessKey = value
         }
-    private var regionName: String = "eu-west-1"
+    private var regionName: String = "spb"
     var RegionName: String
         get() = regionName
         set(value) {
@@ -29,8 +29,8 @@ class AwsBuilder {
         set(value) {
             serviceName = value
         }
-    private var httpMethodName: HTTPMethods = HTTPMethods.GET
-    var HTTPMethod: HTTPMethods
+    private var httpMethodName: HttpMethod = HttpMethod.Get
+    var HTTPMethod: HttpMethod
         get() = httpMethodName
         set(value) {
             httpMethodName = value
@@ -87,7 +87,7 @@ class AwsBuilder {
         this.serviceName = serviceName;
         return this;
     }
-    fun initHTTPMethod(httpMethodName: HTTPMethods): AwsBuilder {
+    fun initHTTPMethod(httpMethodName: HttpMethod): AwsBuilder {
         this.httpMethodName = httpMethodName;
         return this;
     }
