@@ -149,9 +149,9 @@ class AWSV4Auth {
                 signedHeaders.append(key.lowercase()).append(";")
                 canonicalURL.append(key.lowercase()).append(":").append(value.trim()).append("\n")
             }
-        }else{
-            canonicalURL.append("\n")
         }
+        canonicalURL.append("\n")
+
         strSignedHeader = signedHeaders.substring(0, signedHeaders.length - 1)
         canonicalURL.append(strSignedHeader).append("\n")
         payload = if (payload == null) "" else payload
@@ -309,7 +309,7 @@ class AWSV4Auth {
     }
 
     private fun getDate():String {
-        var dateFormat: DateFormat = SimpleDateFormat("yyyyMМdd")
+        var dateFormat: DateFormat = SimpleDateFormat("yyyyMMdd")
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"))
         return dateFormat.format(Date())
         //return "20240326"
