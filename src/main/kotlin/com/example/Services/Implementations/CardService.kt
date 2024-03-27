@@ -10,7 +10,6 @@ import com.example.Repositories.Interfaces.Read.ICardReadRepository
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import com.example.Repositories.Interfaces.Write.ICardWriteRepository
 import com.example.Services.Interfaces.ICardService
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.update

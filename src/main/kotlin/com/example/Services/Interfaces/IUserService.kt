@@ -1,7 +1,7 @@
 package com.example.Services.Interfaces
 
 import com.example.Models.UserModel
-import java.util.UUID
+import java.util.*
 
 /**
  * Сервис UserTable

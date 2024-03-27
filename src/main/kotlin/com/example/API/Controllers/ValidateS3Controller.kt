@@ -1,20 +1,12 @@
 package com.example.API.Controllers
 
-import com.example.Models.Request.RegisterRequest
 import com.example.Models.Response.ErrorResponse
-import com.example.Models.UserModel
-import com.example.Services.Authentication.AWS.AWSV4Auth
 import com.example.Services.Authentication.AWS.AwsBuilder
-import com.example.Services.Authentication.hashHmacSha1
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import java.math.BigInteger
-import java.security.MessageDigest
 import java.util.*
 
 fun Route.initValidateS3Controller() {
@@ -30,8 +22,8 @@ fun Route.initValidateS3Controller() {
             .initPayload(null)
             .initDebug()
     }
-    var access_key = "AKIAIOSFODNN7EXAMPLE"
-    var secret_key = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    var access_key = System.getenv("Access_Key")
+    var secret_key =System.getenv("Secret_Key")
     route("/aws") {
         get("/verification") {
             try {

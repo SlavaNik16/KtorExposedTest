@@ -6,7 +6,6 @@ import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Context.Database.Tables.Results.UserTableResult
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.selectAll
 import java.util.*

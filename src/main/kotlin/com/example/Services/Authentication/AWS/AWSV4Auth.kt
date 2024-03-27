@@ -1,8 +1,5 @@
 package com.example.Services.Authentication.AWS
 
-import org.apache.commons.codec.binary.Hex
-import org.apache.commons.codec.digest.DigestUtils
-import org.apache.commons.codec.digest.HmacUtils
 import java.math.BigInteger
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -12,7 +9,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import kotlin.text.toByteArray
 
 
 class AWSV4Auth {

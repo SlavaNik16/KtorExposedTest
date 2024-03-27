@@ -3,11 +3,9 @@ package com.example.Repositories.Implementation.Read
 import com.example.Context.Database.CommonEntity.notDeletedAt
 import com.example.Context.Database.DatabaseFactory.dbQuery
 import com.example.Context.Database.Tables.Models.CardTable
-import com.example.Context.Database.Tables.Models.UserTable
 import com.example.Context.Database.Tables.Results.CardTableResult
 import com.example.Repositories.Interfaces.Read.ICardReadRepository
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.selectAll
 import java.util.*
