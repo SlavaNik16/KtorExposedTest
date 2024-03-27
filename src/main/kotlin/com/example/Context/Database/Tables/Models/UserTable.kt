@@ -3,7 +3,6 @@ package com.example.Context.Database.Tables.Models
 import com.example.Context.Database.Tables.Enum.RoleTypes
 import com.example.Context.Database.Tables.Enum.StatusTypes
 import org.jetbrains.exposed.sql.Column
-import org.jetbrains.exposed.sql.ResultRow
 
 object UserTable : BaseAuditEntity() {
     val surname: Column<String> = varchar("surname", 80)

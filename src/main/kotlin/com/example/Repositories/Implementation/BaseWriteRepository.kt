@@ -17,13 +17,13 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
     private var dateTimeProvider = DateTimeProvider()
 
     override suspend fun add(entity: TEntity, createdBy: String) {
-        if(entity !is IEntityWithId) {
+        if (entity !is IEntityWithId) {
             return
         }
-        if(entity !is BaseAuditEntity) {
+        if (entity !is BaseAuditEntity) {
             return
         }
-        if(entity.id == null) {
+        if (entity.id == null) {
             var entityWithId = entity as IEntityWithId
             dbQuery {
                 entity.update {
@@ -31,7 +31,7 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
                 }
             }
         }
-        if(createdBy.isBlank()) {
+        if (createdBy.isBlank()) {
             createdBy.plus(userName)
         }
         AuditForCreated(entity, createdBy)
@@ -39,7 +39,7 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
     }
 
     override suspend fun update(entity: TEntity, updatedBy: String) {
-        if(updatedBy.isBlank()) {
+        if (updatedBy.isBlank()) {
             updatedBy.plus(userName)
         }
         AuditForUpdated(entity, updatedBy)
@@ -50,11 +50,11 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
         AuditForDeleted(entity)
     }
 
-    private suspend fun AuditForCreated(@NotNull entity: TEntity, createdBy: String){
-        if(entity !is IEntityAuditCreated) {
+    private suspend fun AuditForCreated(@NotNull entity: TEntity, createdBy: String) {
+        if (entity !is IEntityAuditCreated) {
             return
         }
-        if(entity !is BaseAuditEntity) {
+        if (entity !is BaseAuditEntity) {
             return
         }
         var entityAuditCreated = entity as IEntityAuditCreated
@@ -66,11 +66,11 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
         }
     }
 
-    private suspend fun AuditForUpdated(@NotNull entity: TEntity, updatedBy: String){
-        if(entity !is IEntityAuditUpdated) {
+    private suspend fun AuditForUpdated(@NotNull entity: TEntity, updatedBy: String) {
+        if (entity !is IEntityAuditUpdated) {
             return
         }
-        if(entity !is BaseAuditEntity) {
+        if (entity !is BaseAuditEntity) {
             return
         }
         var entityAuditUpdated = entity as IEntityAuditUpdated
@@ -82,11 +82,11 @@ open class BaseWriteRepository<TEntity> : IRepositoryWriter<TEntity> where TEnti
         }
     }
 
-    private suspend fun AuditForDeleted(@NotNull entity: TEntity){
-        if(entity !is IEntityAuditDeleted) {
+    private suspend fun AuditForDeleted(@NotNull entity: TEntity) {
+        if (entity !is IEntityAuditDeleted) {
             return
         }
-        if(entity !is BaseAuditEntity) {
+        if (entity !is BaseAuditEntity) {
             return
         }
         var entityAuditDeleted = entity as IEntityAuditDeleted

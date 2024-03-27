@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Репозиторий чтения UserTable
  */
-interface IUserReadRepository{
+interface IUserReadRepository {
 
     /**
      * Получение всех пользователей
@@ -16,10 +16,10 @@ interface IUserReadRepository{
     /**
      * Получение пользователя по почте
      */
-    suspend fun getUserByEmail(email:String): UserTableResult?
+    suspend fun getUserByEmail(email: String): UserTableResult?
 
     /**
      * Получение пользователя по идентификатору
      */
-    suspend fun getUserById(id:UUID): UserTableResult?
+    suspend fun getUserById(id: UUID): UserTableResult?
 }

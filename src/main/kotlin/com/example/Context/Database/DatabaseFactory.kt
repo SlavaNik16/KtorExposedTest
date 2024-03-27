@@ -14,14 +14,13 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object DatabaseFactory
-{
+object DatabaseFactory {
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
     private val dbUrl = System.getenv("DATABASE_URL")
     private val dbUser = System.getenv("DATABASE_USER")
-    private val dbPassword =System.getenv("DATABASE_PASSWORD")
+    private val dbPassword = System.getenv("DATABASE_PASSWORD")
 
-    fun Application.initializeDatabase(){
+    fun Application.initializeDatabase() {
         Database.connect(getHikariDataSource())
 
         transaction {
@@ -32,7 +31,7 @@ object DatabaseFactory
         }
     }
 
-    fun getHikariDataSource():HikariDataSource {
+    fun getHikariDataSource(): HikariDataSource {
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
         config.jdbcUrl = "jdbc:$dbUrl"
@@ -46,14 +45,12 @@ object DatabaseFactory
     }
 
     suspend fun <T> dbQuery(block: () -> T): T {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             transaction {
                 block()
             }
         }
     }
-
-
 
 
 }

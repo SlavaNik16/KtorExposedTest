@@ -13,7 +13,6 @@ import com.example.Services.Authentication.JWTService
 import com.example.Services.Implementations.UserService
 import com.example.Services.Interfaces.IUserService
 import org.koin.core.module.dsl.factoryOf
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 

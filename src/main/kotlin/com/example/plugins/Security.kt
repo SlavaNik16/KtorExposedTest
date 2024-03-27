@@ -16,8 +16,7 @@ fun Application.configureSecurity() {
         jwt {
             realm = jwtRealm
             verifier(jwtService.getVerifier())
-            validate {
-                credential ->
+            validate { credential ->
                 val payload = credential.payload
                 val email = payload.getClaim("email").asString()
                 val user = userService.getUserByEmail(email)

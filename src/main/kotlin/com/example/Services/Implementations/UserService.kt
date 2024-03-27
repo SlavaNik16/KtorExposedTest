@@ -33,8 +33,8 @@ class UserService(
     }
 
     override suspend fun create(userModel: UserModel) {
-       var user = dbQuery{
-            UserTable.insert {table ->
+        var user = dbQuery {
+            UserTable.insert { table ->
                 table[id] = userModel.id
                 table[surname] = userModel.surname
                 table[name] = userModel.name

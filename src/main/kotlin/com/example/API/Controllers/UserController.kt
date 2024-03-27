@@ -1,12 +1,11 @@
 package com.example.API.Controllers
 
-import com.example.Context.Database.Tables.Models.UserTable.email
 import com.example.Models.Request.LoginRequest
 import com.example.Models.Request.RegisterRequest
 import com.example.Models.Response.ErrorResponse
 import com.example.Models.Response.TokenResponse
 import com.example.Models.UserModel
-import com.example.Services.Authentication.hash
+import com.example.Services.Authentication.hashHmacSha1
 import com.example.Services.Interfaces.IUserService
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -14,12 +13,12 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
-import java.util.UUID
+import java.util.*
 
 
 fun Route.initUserController() {
 
-    var hashFunction = { p: String -> hash(p) }
+    var hashFunction = { p: String -> hashHmacSha1(p) }
     val userService by inject<IUserService>()
     route("/user") {
         get("all") {
@@ -95,7 +94,7 @@ fun Route.initUserController() {
                     call.respond(HttpStatusCode.NotFound, ErrorResponse(404, Constants.NOT_FOUND_USER))
                     return@post
                 }
-                if (user.password != hash(password)) {
+                if (user.password != hashFunction(password)) {
                     call.respond(HttpStatusCode.NotFound, ErrorResponse(404, Constants.NOT_FOUND_USER))
                     return@post
                 }

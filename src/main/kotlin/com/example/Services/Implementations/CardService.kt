@@ -10,7 +10,6 @@ import com.example.Repositories.Interfaces.Read.ICardReadRepository
 import com.example.Repositories.Interfaces.Read.IUserReadRepository
 import com.example.Repositories.Interfaces.Write.ICardWriteRepository
 import com.example.Services.Interfaces.ICardService
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.update
@@ -49,7 +48,10 @@ class CardService(
                 table[isVerified] = cardModel.isVerified
             }
         }
-        cardWriteRepository.add(card.table as CardTable, "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}")
+        cardWriteRepository.add(
+            card.table as CardTable,
+            "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}"
+        )
         return cardModel
     }
 
@@ -74,7 +76,10 @@ class CardService(
         }
 
         var cardResult = cardReadRepository.getById(cardModel.id)
-        cardWriteRepository.update(cardResult!!.cardTableId as CardTable, "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}")
+        cardWriteRepository.update(
+            cardResult!!.cardTableId as CardTable,
+            "${user.resultRow[UserTable.surname]} ${user.resultRow[UserTable.name]}"
+        )
         return profileMapper.mapToCardModel(cardResult)
     }
 
@@ -85,7 +90,7 @@ class CardService(
                 where = {
                     CardTable.id.eq(cardResult.cardTableId)
                 }
-            ){
+            ) {
                 it[CardTable.deletedAt] = DateTimeProvider().UtcNow()
             }
         }

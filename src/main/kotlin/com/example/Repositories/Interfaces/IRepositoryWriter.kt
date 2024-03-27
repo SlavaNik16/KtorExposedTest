@@ -7,16 +7,16 @@ interface IRepositoryWriter<TEntity> {
     /**
      * Добавить новую запись
      */
-    suspend fun add(@NotNull entity:TEntity, createdBy:String = "")
+    suspend fun add(@NotNull entity: TEntity, createdBy: String = "")
 
     /**
      * Изменить запись
      */
-    suspend fun update(@NotNull entity:TEntity, updatedBy:String = "")
+    suspend fun update(@NotNull entity: TEntity, updatedBy: String = "")
 
     /**
      * Удалить запись по истории
      */
-    suspend fun delete(@NotNull entity:TEntity)
+    suspend fun delete(@NotNull entity: TEntity)
 
 }

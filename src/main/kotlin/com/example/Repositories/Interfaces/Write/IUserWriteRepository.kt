@@ -6,7 +6,6 @@ import com.example.Repositories.Interfaces.IRepositoryWriter
 /**
  * Репозиторий записи UserTable
  */
-interface IUserWriteRepository : IRepositoryWriter<UserTable>
-{
+interface IUserWriteRepository : IRepositoryWriter<UserTable> {
 
 }
