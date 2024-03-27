@@ -31,7 +31,7 @@ fun Route.initValidateS3Controller() {
                     .getValidateStart()
                 var tokenAnswer = call.request.headers["Authorization"]
                 if (genereteToken != tokenAnswer) {
-                    call.respond(HttpStatusCode.Forbidden, ErrorResponse(403, "Недействительный запрос"))
+                    call.respond(HttpStatusCode.Forbidden, ErrorResponse(403, "Недействительный запрос!!!"))
                     return@get
                 }
                 call.respond(HttpStatusCode.OK, "Токен действительный!")
@@ -47,14 +47,17 @@ fun Route.initValidateS3Controller() {
                 var queryParametes = TreeMap<String, String>()
                 queryParametes.put("message", message.toString())
                 queryParametes.put("list-type", list_type.toString())
-
+                if(message.isNullOrBlank() || list_type.isNullOrBlank() ){
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse(400, "Переданы не все параметры: $queryParametes"))
+                    return@post
+                }
                 var genereteToken =getValidate(access_key, secret_key, call.request)
                     .initQueryParametes(queryParametes)
                     .build()
                     .getValidateStart()
                 var tokenAnswer = call.request.headers["Authorization"]
                 if (genereteToken != tokenAnswer) {
-                    call.respond(HttpStatusCode.Forbidden, ErrorResponse(403, "Недействительный запрос"))
+                    call.respond(HttpStatusCode.Forbidden, ErrorResponse(403, "Недействительный запрос!!!"))
                     return@post
                 }
                 call.respond(HttpStatusCode.OK, "Токен действительный! Были отправлены следующие данные:\n$queryParametes")
