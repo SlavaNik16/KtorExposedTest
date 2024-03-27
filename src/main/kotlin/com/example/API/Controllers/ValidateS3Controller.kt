@@ -17,7 +17,6 @@ fun Route.initValidateS3Controller() {
         return AwsBuilder(access_key, secret_key)
             .initHTTPMethod(request.httpMethod)
             .initCanonicalURI(request.path())
-            .initQueryParametes(awsHeader)
             .initAwsHeaders(awsHeader)
             .initPayload(null)
             .initDebug()
